@@ -296,23 +296,6 @@ Pour contribuer à ce projet:
 
 Ce projet est développé dans le cadre d'un projet académique MBA ESG.
 
-## 📬 Soumission
-
-**Intitulé:** MBAESG_EVALUATION_MANAGEMENT_OPERATIONNEL
-**Adresse:** axel@logbrain.fr
-
-## 🙏 Remerciements
-
-- Kaggle pour les datasets
-- Communauté Streamlit pour la documentation
-- DuckDB Labs pour l'excellent système de base de données
-
-## 📞 Support
-
-Pour toute question ou problème:
-- 📧 Créez une issue sur GitHub
-- 📚 Consultez la documentation Streamlit: https://docs.streamlit.io
-- 📖 Documentation DuckDB: https://duckdb.org/docs/
 
 ---
 
