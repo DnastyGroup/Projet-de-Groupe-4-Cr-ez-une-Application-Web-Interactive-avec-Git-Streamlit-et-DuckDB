@@ -1,59 +1,321 @@
-# Projet de Groupe 4 : Créez une Application Web Interactive avec Git, Streamlit et DuckDB
-Ce projet vise à développer une application web interactive utilisant Streamlit pour l'interface utilisateur et DuckDB pour la gestion des données. L'application permettra aux utilisateurs de téléverser des fichiers CSV contenant des données de ventes, de stocker ces données dans une base DuckDB, et de visualiser diverses analyses à travers des KPIs et des graphiques.
+# 📚 Projet de Groupe 4 : Application Web Interactive d'Analyse de Performance Étudiante
 
-# Installation et Exécution
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Streamlit](https://img.shields.io/badge/streamlit-1.28+-red.svg)](https://streamlit.io/)
+[![DuckDB](https://img.shields.io/badge/duckdb-latest-yellow.svg)](https://duckdb.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-## Prérequis
+## 🎯 Objectif du Projet
+
+Ce projet développe une **application web interactive** utilisant **Streamlit** pour l'interface utilisateur et **DuckDB** pour la gestion des données. L'application permet aux utilisateurs de :
+
+- 📁 Téléverser des fichiers CSV contenant des données de performance étudiante
+- 🗄️ Stocker et interroger ces données avec DuckDB
+- 📊 Visualiser 4 indicateurs clés de performance (KPI) distincts
+- 🔍 Filtrer dynamiquement les résultats par genre, score, éducation parentale, et heures d'étude
+- 📈 Explorer des visualisations interactives et des insights approfondis
+
+## 📂 Datasets Utilisés
+
+Ce projet analyse deux datasets complémentaires sur la performance étudiante :
+
+### Dataset 1 : Student Habits vs Academic Performance
+**Source:** [Kaggle - Student Habits vs Academic Performance](https://www.kaggle.com/datasets/jayaantanaath/student-habits-vs-academic-performance)
+
+**Colonnes principales:**
+- `student_id`, `age`, `gender`
+- `study_hours_per_day`, `social_media_hours`, `netflix_hours`
+- `attendance_percentage`, `sleep_hours`, `diet_quality`
+- `exercise_frequency`, `parental_education_level`
+- `mental_health_rating`, `extracurricular_participation`
+- `exam_score` (variable cible)
+
+**Taille:** ~500 enregistrements
+
+### Dataset 2 : Student Performance Factors
+**Source:** [Kaggle - Student Performance Factors](https://www.kaggle.com/datasets/lainguyn123/student-performance-factors)
+
+**Colonnes principales:**
+- `Hours_Studied`, `Attendance`, `Parental_Involvement`
+- `Access_to_Resources`, `Extracurricular_Activities`
+- `Sleep_Hours`, `Previous_Scores`, `Motivation_Level`
+- `Internet_Access`, `Tutoring_Sessions`, `Family_Income`
+- `Teacher_Quality`, `School_Type`, `Peer_Influence`
+- `Physical_Activity`, `Learning_Disabilities`
+- `Parental_Education_Level`, `Distance_from_Home`, `Gender`
+- `Exam_Score` (variable cible)
+
+**Taille:** ~6,000+ enregistrements
+
+## 🚀 Installation et Exécution
+
+### Prérequis
 - Python 3.8 ou supérieur
-- pip
+- pip (gestionnaire de paquets Python)
+- Git
 
-## Installation
-1. Clonez ce dépôt :
-   ```
+### Installation
+
+1. **Clonez ce dépôt:**
+   ```bash
    git clone https://github.com/DnastyGroup/Projet-de-Groupe-4-Cr-ez-une-Application-Web-Interactive-avec-Git-Streamlit-et-DuckDB.git
    cd Projet-de-Groupe-4-Cr-ez-une-Application-Web-Interactive-avec-Git-Streamlit-et-DuckDB
    ```
 
-2. Installez les dépendances :
+2. **Créez un environnement virtuel (recommandé):**
+   ```bash
+   # Windows
+   python -m venv venv
+   venv\Scripts\activate
+
+   # macOS/Linux
+   python3 -m venv venv
+   source venv/bin/activate
    ```
+
+3. **Installez les dépendances:**
+   ```bash
    pip install -r requirements.txt
    ```
 
-## Exécution
-Lancez l'application Streamlit :
-```
+### Exécution
+
+Lancez l'application Streamlit:
+```bash
 streamlit run app.py
 ```
 
-L'application sera accessible à l'adresse http://localhost:8501
+L'application sera automatiquement ouverte dans votre navigateur à l'adresse **http://localhost:8501**
 
-## Description des Fonctionnalités
-- Téléversement de fichiers CSV contenant des données de ventes
-- Stockage des données dans une base DuckDB
-- Calcul et affichage de 4 KPIs : Ventes Totales, Ventes Moyennes par Transaction, Nombre de Transactions, Région avec les Plus Hautes Ventes
-- 4 visualisations : Évolution des Ventes dans le Temps, Ventes par Région, Top 10 Produits par Ventes, Distribution des Montants de Ventes
-- Filtres dynamiques par date, région et produit
+## 📊 Fonctionnalités Principales
 
-## Répartition des Tâches
-- Membre 1 : Développement de l'interface Streamlit et téléversement de fichiers
-- Membre 2 : Intégration de DuckDB et écriture des requêtes SQL
-- Membre 3 : Création des visualisations et KPIs
-- Membre 4 : Tests, documentation et gestion Git
+### 1️⃣ Interface de Téléversement de Fichiers
+- Téléversement simple via drag & drop ou sélection de fichier
+- Support des fichiers CSV
+- Détection automatique du type de dataset
+- Prévisualisation des données avec statistiques de base
 
-Jeux de données :
-Chaque groupe se verra attribuer une thématique parmi celles listées ci-dessous, chacune accompagnée d'un jeu de données permettant une analyse approfondie.
+### 2️⃣ Intégration DuckDB
+- Base de données en mémoire pour des performances optimales
+- Requêtes SQL optimisées pour l'analyse de données
+- Gestion efficace de datasets volumineux
+- Transactions sécurisées
 
-https://www.kaggle.com/datasets/urvishahir/electric-vehicle-specifications-dataset-2025?select=electric_vehicles_spec_2025.csv.csv
-https://www.kaggle.com/datasets/michaelhakim/walmart-sales-analysis?select=Walmart_sales_analysis.csv
-https://www.kaggle.com/datasets/nimishasen27/spotify-dataset
-https://www.kaggle.com/datasets/abhinavrongala/netflix-datasets-evaluation?select=Netflix+Datasets+Evaluation+MS+Excel.csv
-https://www.kaggle.com/datasets/harishthakur995/mcdonald-vs-burger-king
-https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset
-https://www.kaggle.com/datasets/jayaantanaath/student-habits-vs-academic-performance
-https://www.kaggle.com/datasets/lainguyn123/student-performance-factors
-https://www.kaggle.com/datasets/shariful07/student-mental-health?select=Student+Mental+health.csv
-https://www.kaggle.com/datasets/shivamb/amazon-prime-movies-and-tv-shows
-https://www.kaggle.com/datasets/zeesolver/consumer-behavior-and-shopping-habits-dataset
-https://www.kaggle.com/datasets/arianazmoudeh/airbnbopendata
-📬 Soumission
-Envoyez votre livrable avec intitulé MBAESG_EVALUATION_MANAGEMENT_OPERATIONNEL à l'adresse suivante : axel@logbrain.fr
+**Exemples de requêtes SQL utilisées:**
+```sql
+-- Calcul du score moyen filtré
+SELECT AVG(exam_score) FROM student_data
+WHERE gender IN ('Male', 'Female')
+AND exam_score BETWEEN 0 AND 100;
+
+-- Analyse par tranche de présence
+SELECT
+    CASE
+        WHEN attendance_percentage < 60 THEN '< 60%'
+        WHEN attendance_percentage < 70 THEN '60-70%'
+        ELSE '90-100%'
+    END as attendance_range,
+    AVG(exam_score) as avg_score
+FROM student_data
+GROUP BY attendance_range;
+```
+
+### 3️⃣ Quatre KPIs Distincts
+
+| KPI | Description | Calcul |
+|-----|-------------|--------|
+| 🎯 **Score Moyen d'Examen** | Performance académique moyenne | `AVG(exam_score)` |
+| ✅ **Taux de Réussite** | Pourcentage d'étudiants avec score ≥ 70 | `COUNT(score >= 70) / COUNT(*) * 100` |
+| 📚 **Heures d'Étude Moyennes** | Temps moyen consacré aux études | `AVG(study_hours)` |
+| 👥 **Taux de Présence Moyen** | Assiduité moyenne des étudiants | `AVG(attendance_percentage)` |
+
+### 4️⃣ Quatre Visualisations Interactives
+
+#### Visualisation 1: Distribution des Scores d'Examen
+- **Type:** Histogramme
+- **Objectif:** Comprendre la répartition des performances
+- **Insights:** Identification des pics de performance et de la normalité de distribution
+
+#### Visualisation 2: Heures d'Étude vs Score
+- **Type:** Scatter plot avec ligne de tendance
+- **Objectif:** Analyser la corrélation entre temps d'étude et réussite
+- **Insights:** Validation de l'impact positif du temps d'étude
+
+#### Visualisation 3: Performance par Genre
+- **Type:** Bar chart
+- **Objectif:** Comparer les performances entre genres
+- **Insights:** Analyse des disparités de performance
+
+#### Visualisation 4: Impact de la Présence sur les Scores
+- **Type:** Bar chart groupé
+- **Objectif:** Mesurer l'effet de l'assiduité
+- **Insights:** Corrélation entre présence et réussite académique
+
+### 5️⃣ Filtres Dynamiques
+
+| Filtre | Type | Description |
+|--------|------|-------------|
+| **Genre** | Multi-sélection | Filtrer par Male/Female/Other |
+| **Plage de Scores** | Slider | Sélection de la plage de scores (0-100) |
+| **Éducation Parentale** | Multi-sélection | High School/Bachelor/Master/Postgraduate |
+| **Heures d'Étude** | Slider | Filtrage selon le temps d'étude |
+
+### 6️⃣ Fonctionnalités Additionnelles
+
+- **📊 Analyse de Corrélation:** Coefficient de corrélation entre heures d'étude et score
+- **🏆 Top 10 Étudiants:** Classement des meilleurs performers
+- **💾 Export de Données:** Téléchargement des données filtrées en CSV
+- **📈 Insights Automatiques:** Interprétation intelligente des corrélations
+
+## 🏗️ Structure du Projet
+
+```
+Projet-de-Groupe-4/
+│
+├── Dataset/                          # Datasets CSV
+│   ├── student_habits_performance.csv
+│   └── StudentPerformanceFactors.csv
+│
+├── app.py                            # Application Streamlit principale
+├── requirements.txt                  # Dépendances Python
+├── README.md                         # Documentation
+│
+└── __pycache__/                      # Fichiers Python compilés
+```
+
+## 📦 Dépendances
+
+```txt
+streamlit>=1.28.0          # Framework web interactif
+pandas>=2.0.0              # Manipulation de données
+duckdb>=0.9.0              # Base de données analytique
+plotly>=5.17.0             # Visualisations interactives
+numpy>=1.24.0              # Calculs numériques
+statsmodels>=0.14.0        # Analyses statistiques et trendlines
+```
+
+## 👥 Répartition des Tâches (Équipe de 4)
+
+| Membre | Responsabilité | Tâches Principales |
+|--------|----------------|-------------------|
+| **Membre 1** | Interface Streamlit | • Configuration de la page<br>• Interface de téléversement<br>• Layout et organisation |
+| **Yassine Kamali** | Intégration DuckDB | • Connexion à DuckDB<br>• Création de tables<br>• Requêtes SQL optimisées |
+| **Membre 3** | Visualisations & KPIs | • 4 graphiques interactifs<br>• Calcul des KPIs<br>• Design des visualisations |
+| **Membre 4** | Filtres & Documentation | • Système de filtres dynamiques<br>• Tests fonctionnels<br>• Documentation (README) |
+
+## 🧪 Guide d'Utilisation
+
+### Étape 1: Téléverser un Fichier
+1. Cliquez sur "Browse files" dans la sidebar
+2. Sélectionnez un fichier CSV (student_habits_performance.csv ou StudentPerformanceFactors.csv)
+3. Les données sont automatiquement chargées et analysées
+
+### Étape 2: Explorer les KPIs
+- Consultez les 4 indicateurs principaux en haut de page
+- Comparez avec les valeurs globales (delta)
+
+### Étape 3: Appliquer des Filtres
+1. Utilisez la sidebar pour sélectionner vos critères
+2. Les visualisations se mettent à jour en temps réel
+3. Le compteur d'étudiants filtrés s'affiche en bas de la sidebar
+
+### Étape 4: Analyser les Visualisations
+- Explorez les 4 graphiques interactifs
+- Survolez les points pour voir les détails
+- Zoomez et déplacez-vous dans les graphiques
+
+### Étape 5: Exporter les Données
+1. Ouvrez l'expander "Voir les Données Filtrées Complètes"
+2. Cliquez sur "Télécharger les données filtrées (CSV)"
+3. Le fichier est sauvegardé avec un timestamp
+
+## 🔍 Exemples de Cas d'Usage
+
+### Cas 1: Identifier les Facteurs de Réussite
+**Objectif:** Comprendre quels facteurs influencent le plus la réussite académique
+
+**Démarche:**
+1. Téléverser le dataset Student Performance Factors
+2. Observer la corrélation entre heures d'étude et score
+3. Analyser l'impact de la présence sur les performances
+4. Comparer les résultats par niveau d'éducation parentale
+
+**Insight Attendu:** Les étudiants avec >5h d'étude/jour et >80% de présence ont un score moyen supérieur de 15 points
+
+### Cas 2: Analyse des Disparités de Genre
+**Objectif:** Évaluer s'il existe des différences de performance entre genres
+
+**Démarche:**
+1. Utiliser le filtre "Genre" pour sélectionner alternativement Male/Female
+2. Comparer les KPIs entre les deux groupes
+3. Observer la visualisation "Performance par Genre"
+
+**Insight Attendu:** Identification de potentielles disparités nécessitant des actions correctives
+
+### Cas 3: Optimisation des Heures d'Étude
+**Objectif:** Déterminer le nombre optimal d'heures d'étude
+
+**Démarche:**
+1. Observer le scatter plot "Heures d'Étude vs Score"
+2. Identifier le point d'inflexion où plus d'heures n'améliore plus significativement le score
+3. Analyser la ligne de tendance
+
+**Insight Attendu:** Le rendement marginal des heures d'étude diminue après 6-7h/jour
+
+## 🛠️ Technologies Utilisées
+
+| Technologie | Version | Utilisation |
+|-------------|---------|-------------|
+| **Python** | 3.8+ | Langage principal |
+| **Streamlit** | 1.28+ | Framework web interactif |
+| **DuckDB** | 0.9+ | Base de données analytique |
+| **Pandas** | 2.0+ | Manipulation de données |
+| **Plotly** | 5.17+ | Visualisations interactives |
+| **NumPy** | 1.24+ | Calculs numériques |
+
+## 📈 Métriques de Qualité du Code
+
+- ✅ Code modulaire et réutilisable
+- ✅ Gestion d'erreurs avec try/except
+- ✅ Interface utilisateur intuitive
+- ✅ Performance optimisée avec DuckDB
+- ✅ Documentation inline complète
+- ✅ Compatibilité multi-datasets
+
+## 🤝 Contribution
+
+Pour contribuer à ce projet:
+
+1. Fork le repository
+2. Créez une branche pour votre feature (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
+
+## 📝 Licence
+
+Ce projet est développé dans le cadre d'un projet académique MBA ESG.
+
+## 📬 Soumission
+
+**Intitulé:** MBAESG_EVALUATION_MANAGEMENT_OPERATIONNEL
+**Adresse:** axel@logbrain.fr
+
+## 🙏 Remerciements
+
+- Kaggle pour les datasets
+- Communauté Streamlit pour la documentation
+- DuckDB Labs pour l'excellent système de base de données
+
+## 📞 Support
+
+Pour toute question ou problème:
+- 📧 Créez une issue sur GitHub
+- 📚 Consultez la documentation Streamlit: https://docs.streamlit.io
+- 📖 Documentation DuckDB: https://duckdb.org/docs/
+
+---
+
+**Développé avec ❤️ par l'Équipe Groupe 4 - MBA ESG**
+
+*Dernière mise à jour: Février 2025*
