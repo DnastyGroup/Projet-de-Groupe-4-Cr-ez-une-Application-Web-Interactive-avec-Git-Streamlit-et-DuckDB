@@ -104,14 +104,7 @@ if uploaded_file is not None:
         else:
             st.error("⚠️ Format de fichier non reconnu. Veuillez téléverser un dataset valide.")
             st.stop()
-            # --- IMPROVEMENT 2: COLUMN INTEGRITY CHECK ---
-        # Now that score_col etc. are defined, we can safely check if they exist in the CSV
-        required_columns = [score_col, gender_col, study_col, attendance_col]
-        missing = [col for col in required_columns if col not in df.columns]
-        if missing:
-            st.error(f"⚠️ Data Structure Error: Missing columns {missing}")
-            st.info("Please ensure your CSV matches the expected dataset format.")
-            st.stop()
+    
 
         # --- IMPROVEMENT: COLUMN INTEGRITY CHECK ---
         # We verify that the identified columns are actually in the file
