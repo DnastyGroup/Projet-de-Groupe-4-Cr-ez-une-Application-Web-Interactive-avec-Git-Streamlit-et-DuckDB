@@ -62,7 +62,17 @@ if uploaded_file is not None:
     try:
         # Read CSV
         df = pd.read_csv(uploaded_file)
-
+# DATA VALIDATION IMPROVEMENT (Member 4 - Testing & Quality)
+        if df.empty:
+            st.error("⚠️ The uploaded file is empty. Please upload a valid CSV dataset.")
+            st.stop()
+        
+        # Check for required columns based on dataset detection
+        required_cols = [score_col, gender_col, study_col]
+        if not all(col in df.columns for col in required_cols):
+            st.error("⚠️ The CSV structure is incorrect. Missing required data columns.")
+            st.stop()
+            
         # Store original column names
         original_columns = df.columns.tolist()
 
