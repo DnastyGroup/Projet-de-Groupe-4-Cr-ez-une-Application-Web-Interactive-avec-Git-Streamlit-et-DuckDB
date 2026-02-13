@@ -184,15 +184,30 @@ Projet-de-Groupe-4/
 ```
 
 ## 🧪 Phase de Tests et Assurance Qualité (Salimi Mazrag Amina)
-J'ai assuré la stabilité et la fiabilité de l'application via une approche de "stress testing" :
 
-- **Tests Logiques Automatisés :** Création du script `test_logic.py` pour valider les calculs de KPIs via DuckDB.
+Cette phase garantit la stabilité et la fiabilité de l'application à travers une approche de "stress testing" et de validation logique rigoureuse :
+
+- **Validation Logique Automatisée :** L'utilisation du script `test_logic.py` permet de vérifier l'exactitude des calculs de KPIs via DuckDB de manière indépendante de l'interface.
 - **Gestion des Erreurs Critiques :** 
-    - Implémentation d'une détection préventive des fichiers de 0 octet (`uploaded_file.size`).
-    - Capture spécifique de l'exception `pd.errors.EmptyDataError` pour éviter les crashs de l'interface lors du chargement de fichiers corrompus.
-- **Validation de Structure :** Vérification dynamique de l'intégrité de la structure CSV avant tout traitement DuckDB.
-- **Amélioration UX :** Ajout d'infobulles explicatives sur les KPIs et messages d'erreur clairs en cas de mauvais format de fichier.
-- **Workflow Git :** Gestion complète via une branche dédiée (`feature/tests-y-mejoras`) et Pull Requests.
+    - Mise en place d'une détection préventive pour les fichiers de 0 octet (`uploaded_file.size`).
+    - Capture systématique de l'exception `pd.errors.EmptyDataError` afin d'éviter toute interruption brutale du service.
+- **Contrôle de Structure des Données :** Un système de vérification dynamique valide l'intégrité du format CSV et la présence des colonnes requises avant tout traitement par le moteur DuckDB.
+- **Optimisation de l'Expérience Utilisateur (UX) :** L'intégration d'infobulles explicatives et de messages d'alerte clairs facilite la compréhension des indicateurs et la résolution des erreurs de saisie.
+
+### 📸 Preuves Visuelles des Scénarios de Test
+*Les captures d'écran suivantes démontrent la capacité de l'application à gérer différents scénarios d'utilisation :*
+
+#### 1. État Nominal (Traitement Réussi)
+L'application affiche un tableau de bord complet, des KPIs calculés avec précision et des graphiques interactifs après un téléversement valide.
+![Dashboard Success](screenshots/app_main.png)
+
+#### 2. Test de Robustesse : Fichier Vide
+Le système identifie immédiatement l'absence de données (0 octet) et génère une alerte de sécurité au lieu de laisser l'application s'arrêter.
+![Test Empty File](screenshots/error_empty.png)
+
+#### 3. Test de Conformité : Format Invalide
+En cas de structure CSV non conforme (colonnes manquantes ou renommées), l'application informe précisément l'utilisateur sur les éléments requis.
+![Test Format Error](screenshots/error_format.png)
 
 
 ## 📦 Dépendances
