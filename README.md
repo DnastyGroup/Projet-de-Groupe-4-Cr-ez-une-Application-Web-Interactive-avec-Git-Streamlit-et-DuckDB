@@ -183,6 +183,18 @@ Projet-de-Groupe-4/
 └── __pycache__/                      # Fichiers Python compilés
 ```
 
+## 🧪 Phase de Tests et Assurance Qualité (Salimi Mazrag Amina)
+J'ai assuré la stabilité et la fiabilité de l'application via une approche de "stress testing" :
+
+- **Tests Logiques Automatisés :** Création du script `test_logic.py` pour valider les calculs de KPIs via DuckDB.
+- **Gestion des Erreurs Critiques :** 
+    - Implémentation d'une détection préventive des fichiers de 0 octet (`uploaded_file.size`).
+    - Capture spécifique de l'exception `pd.errors.EmptyDataError` pour éviter les crashs de l'interface lors du chargement de fichiers corrompus.
+- **Validation de Structure :** Vérification dynamique de l'intégrité de la structure CSV avant tout traitement DuckDB.
+- **Amélioration UX :** Ajout d'infobulles explicatives sur les KPIs et messages d'erreur clairs en cas de mauvais format de fichier.
+- **Workflow Git :** Gestion complète via une branche dédiée (`feature/tests-y-mejoras`) et Pull Requests.
+
+
 ## 📦 Dépendances
 
 ```txt
@@ -202,6 +214,7 @@ statsmodels>=0.14.0        # Analyses statistiques et trendlines
 | **Yassine Kamali** | Intégration DuckDB | • Connexion à DuckDB<br>• Création de tables<br>• Requêtes SQL optimisées |
 | **Membre 3** | Visualisations & KPIs | • 4 graphiques interactifs<br>• Calcul des KPIs<br>• Design des visualisations |
 | **Membre 4** | Filtres & Documentation | • Système de filtres dynamiques<br>• Tests fonctionnels<br>• Documentation (README) |
+| **SALIMI MAZRAG AMINA** | Tests & Qualité | • Script de tests automatisés (test_logic.py) <br> • Validation des données et gestion d'erreurs <br> • Amélioration UX et documentation |
 
 ## 🧪 Guide d'Utilisation
 

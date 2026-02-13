@@ -60,19 +60,20 @@ with st.sidebar:
 
 if uploaded_file is not None:
     try:
+        # --- IMPROVEMENT: PRE-READ SIZE CHECK ---
+        # We check the file size before even trying to read it
+        if uploaded_file.size == 0:
+            st.error("⚠️ The uploaded file is completely empty (0 bytes). Please upload a valid CSV.")
+            st.stop()
+
         # Read CSV
         df = pd.read_csv(uploaded_file)
-# DATA VALIDATION IMPROVEMENT (Member 4 - Testing & Quality)
+
+        # --- IMPROVEMENT: DATA CONTENT CHECK ---
         if df.empty:
-            st.error("⚠️ The uploaded file is empty. Please upload a valid CSV dataset.")
+            st.error("⚠️ The CSV file has headers but no data rows. Please upload a valid dataset.")
             st.stop()
-        
-        # Check for required columns based on dataset detection
-        required_cols = [score_col, gender_col, study_col]
-        if not all(col in df.columns for col in required_cols):
-            st.error("⚠️ The CSV structure is incorrect. Missing required data columns.")
-            st.stop()
-            
+
         # Store original column names
         original_columns = df.columns.tolist()
 
@@ -102,6 +103,16 @@ if uploaded_file is not None:
             parent_edu_col = 'Parental_Education_Level'
         else:
             st.error("⚠️ Format de fichier non reconnu. Veuillez téléverser un dataset valide.")
+            st.stop()
+    
+
+        # --- IMPROVEMENT: COLUMN INTEGRITY CHECK ---
+        # We verify that the identified columns are actually in the file
+        required_columns = [score_col, gender_col, study_col, attendance_col]
+        missing = [col for col in required_columns if col not in df.columns]
+        if missing:
+            st.error(f"⚠️ Data Structure Error: Missing columns {missing}")
+            st.info("Ensure your CSV matches the expected Kaggle format.")
             st.stop()
 
         # Display basic info
@@ -202,10 +213,10 @@ if uploaded_file is not None:
             # KPI 1: Average Exam Score
             avg_score = con.execute(f"SELECT AVG({score_col}) FROM student_data {full_filter}").fetchone()[0]
             st.metric(
-                "🎯 Score Moyen d'Examen",
+                "🎯 Average Score",
                 f"{avg_score:.2f}",
                 delta=f"{avg_score - df[score_col].mean():.2f} vs global",
-                help="Score moyen d'examen des étudiants filtrés"
+                help="The arithmetic mean of exam scores for the filtered group of students."
             )
 
         with col2:
@@ -214,27 +225,27 @@ if uploaded_file is not None:
             success_count = con.execute(f"SELECT COUNT(*) FROM student_data {full_filter} AND {score_col} >= 70").fetchone()[0]
             success_rate = (success_count / total_students * 100) if total_students > 0 else 0
             st.metric(
-                "✅ Taux de Réussite",
+                "✅ Success Rate",
                 f"{success_rate:.1f}%",
-                help="Pourcentage d'étudiants avec un score >= 70"
+                help="Percentage of students who achieved a passing grade (70/100 or higher)."
             )
 
         with col3:
             # KPI 3: Average Study Hours
             avg_study = con.execute(f"SELECT AVG({study_col}) FROM student_data {full_filter}").fetchone()[0]
             st.metric(
-                "📚 Heures d'Étude Moyennes",
+                "📚 Avg Study Hours",
                 f"{avg_study:.2f}h",
-                help="Nombre moyen d'heures d'étude"
+                help="Average daily hours spent studying. Helps to analyze the correlation with results."
             )
 
         with col4:
             # KPI 4: Average Attendance
             avg_attendance = con.execute(f"SELECT AVG({attendance_col}) FROM student_data {full_filter}").fetchone()[0]
             st.metric(
-                "👥 Taux de Présence Moyen",
+                "👥 Avg Attendance",
                 f"{avg_attendance:.1f}%",
-                help="Taux de présence moyen des étudiants"
+                help="Mean attendance percentage. High attendance is often a key factor in student success."
             )
 
         st.markdown("---")
@@ -418,9 +429,14 @@ if uploaded_file is not None:
         # Close DuckDB connection
         con.close()
 
+    except pd.errors.EmptyDataError:
+        st.error("⚠️ EmptyDataError: The file provided has no columns or data to parse.")
+        st.stop()
     except Exception as e:
         st.error(f"❌ Erreur lors du traitement du fichier: {str(e)}")
-        st.exception(e)
+        # Solo mostrar la excepción técnica si es un error desconocido
+        if "score_col" not in str(e): 
+            st.exception(e)
 
 else:
     # Welcome screen when no file is uploaded
