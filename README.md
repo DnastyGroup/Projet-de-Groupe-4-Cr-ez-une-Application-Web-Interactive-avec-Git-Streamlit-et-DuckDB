@@ -210,10 +210,10 @@ statsmodels>=0.14.0        # Analyses statistiques et trendlines
 
 | Membre | Responsabilité | Tâches Principales |
 |--------|----------------|-------------------|
-| **Membre 1** | Interface Streamlit | • Configuration de la page<br>• Interface de téléversement<br>• Layout et organisation |
+| **Matthieu AYINA** | Interface Streamlit | • Configuration de la page<br>• Interface de téléversement<br>• Layout et organisation |
 | **Yassine Kamali** | Intégration DuckDB | • Connexion à DuckDB<br>• Création de tables<br>• Requêtes SQL optimisées |
-| **Membre 3** | Visualisations & KPIs | • 4 graphiques interactifs<br>• Calcul des KPIs<br>• Design des visualisations |
-| **Membre 4** | Filtres & Documentation | • Système de filtres dynamiques<br>• Tests fonctionnels<br>• Documentation (README) |
+| **Raouf OROU-GOURA** | Visualisations & KPIs | • 4 graphiques interactifs<br>• Calcul des KPIs<br>• Design des visualisations |
+| **Kodzo Anani** | Filtres & Documentation | • Système de filtres dynamiques<br>• Tests fonctionnels<br>• Documentation (README) |
 | **SALIMI MAZRAG AMINA** | Tests & Qualité | • Script de tests automatisés (test_logic.py) <br> • Validation des données et gestion d'erreurs <br> • Amélioration UX et documentation |
 
 ## 🧪 Guide d'Utilisation
