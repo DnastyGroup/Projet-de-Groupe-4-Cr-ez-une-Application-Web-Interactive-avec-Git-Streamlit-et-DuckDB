@@ -2,52 +2,42 @@ import pandas as pd
 import duckdb
 import pytest
 
-def run_quality_tests():
+def test_student_data_logic():
     """
-    Comprehensive logic tests for DuckDB integration and KPI calculations.
+    Test to verify that DuckDB correctly calculates KPIs 
+    based on the standardized student data logic.
     """
-    print("\n" + "="*30)
-    print("🚀 STARTING QUALITY ASSURANCE TESTS")
-    print("="*30)
-
-    # 1. Create controlled mock data
-    mock_data = {
-        'exam_score': [100, 40, 70],  # Average: 70.0 | Successes: 2 (100 and 70)
-        'study_hours': [10, 2, 5],
-        'gender': ['F', 'M', 'F']
+    # 1. Create dummy data mimicking the 'Factors' dataset
+    data = {
+        'Exam_Score': [85, 40, 95, 20, 75],
+        'Hours_Studied': [10, 2, 12, 1, 8],
+        'Attendance': [95, 60, 100, 40, 80],
+        'Gender': ['F', 'M', 'F', 'M', 'F']
     }
-    df = pd.DataFrame(mock_data)
+    df = pd.DataFrame(data)
 
-    # 2. Setup DuckDB
-    try:
-        con = duckdb.connect(database=':memory:')
-        con.execute("CREATE TABLE student_data AS SELECT * FROM df")
-        print("✅ DuckDB connection and table creation: OK")
+    # 2. Initialize in-memory DuckDB
+    con = duckdb.connect(database=':memory:')
+    con.execute("CREATE TABLE student_data AS SELECT * FROM df")
 
-        # TEST 1: Average Score Calculation
-        avg_score = con.execute("SELECT AVG(exam_score) FROM student_data").fetchone()[0]
-        assert avg_score == 70.0
-        print(f"✅ KPI Test (Average Score): PASSED (Got {avg_score})")
+    # 3. Test KPI: Average Score
+    # Calculation: (85+40+95+20+75) / 5 = 63.0
+    avg_score = con.execute("SELECT AVG(Exam_Score) FROM student_data").fetchone()[0]
+    assert avg_score == 63.0, f"Expected 63.0, but got {avg_score}"
 
-        # TEST 2: Success Rate Logic (Score >= 70)
-        total = con.execute("SELECT COUNT(*) FROM student_data").fetchone()[0]
-        successes = con.execute("SELECT COUNT(*) FROM student_data WHERE exam_score >= 70").fetchone()[0]
-        success_rate = (successes / total) * 100
-        assert success_rate == (2/3) * 100
-        print(f"✅ KPI Test (Success Rate): PASSED (Got {success_rate:.1f}%)")
+    # 4. Test KPI: Success Rate (Score >= 70)
+    # 3 students (85, 95, 75) out of 5 = 60%
+    total = con.execute("SELECT COUNT(*) FROM student_data").fetchone()[0]
+    successes = con.execute("SELECT COUNT(*) FROM student_data WHERE Exam_Score >= 70").fetchone()[0]
+    success_rate = (successes / total) * 100
+    assert success_rate == 60.0, f"Expected 60.0, but got {success_rate}"
 
-        # TEST 3: Data Filtering Logic
-        male_count = con.execute("SELECT COUNT(*) FROM student_data WHERE gender = 'M'").fetchone()[0]
-        assert male_count == 1
-        print(f"✅ Filter Test (Gender): PASSED (Got {male_count} male student)")
+    # 5. Test Filter Logic: Female students only
+    female_avg = con.execute("SELECT AVG(Exam_Score) FROM student_data WHERE Gender = 'F'").fetchone()[0]
+    # (85+95+75) / 3 = 85.0
+    assert female_avg == 85.0, f"Expected 85.0 for females, but got {female_avg}"
 
-        print("\n" + "="*30)
-        print("⭐ ALL TESTS PASSED SUCCESSFULLY ⭐")
-        print("="*30)
-
-    except Exception as e:
-        print(f"❌ TEST FAILED: {str(e)}")
-        exit(1)
+    print("✅ All logic tests passed successfully!")
 
 if __name__ == "__main__":
-    run_quality_tests()
+    test_student_data_logic()
